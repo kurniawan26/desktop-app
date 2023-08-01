@@ -15,7 +15,6 @@ import {
   useDisclosure,
   Menu,
   MenuButton,
-  MenuDivider,
   MenuItem,
   MenuList,
 } from '@chakra-ui/react';
