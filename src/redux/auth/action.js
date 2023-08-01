@@ -36,6 +36,17 @@ function asyncSetAuthUserCreator({ email, password }) {
   };
 }
 
+function setUserFromLocalStorage() {
+  return async function (dispatch) {
+    try {
+      const token = await api.getAccessToken();
+      dispatch(setAuthUserCreator(token));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+}
+
 const asyncRegisterUser = user => async () => {
   try {
     await api.register(user);
@@ -57,4 +68,5 @@ export {
   asyncSetAuthUserCreator,
   asyncRemoveAuthUserCreator,
   asyncRegisterUser,
+  setUserFromLocalStorage,
 };

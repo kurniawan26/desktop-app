@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { asyncGetAllReport } from '../redux/report/action';
 
 export default function Home() {
-  const { report } = useSelector(state => state);
+  const report = useSelector(state => state.report);
 
   const dispatch = useDispatch();
 

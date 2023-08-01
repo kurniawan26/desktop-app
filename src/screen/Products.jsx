@@ -10,6 +10,7 @@ import {
   Button,
   IconButton,
   useDisclosure,
+  Th,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -20,8 +21,10 @@ import { Link } from 'react-router-dom';
 import { FaPen, FaTrash } from 'react-icons/fa';
 import ModalDialogue from '../component/ModalDialogue';
 
-export const ResponsiveTable = () => {
-  const { allProduct } = useSelector(state => state);
+export default function Products() {
+  const tableHeader = ['Name', 'Price', 'Stock', 'Action'];
+  const allProduct = useSelector(state => state.allProduct);
+
   const [selectId, setSelectId] = React.useState(null);
 
   const dispatch = useDispatch();
@@ -29,8 +32,6 @@ export const ResponsiveTable = () => {
   useEffect(() => {
     dispatch(asyncGetAllProducts());
   }, [dispatch]);
-
-  const tableHeader = ['Name', 'Price', 'Stock', 'Action'];
 
   const handleDelete = id => {
     dispatch(asyncDeleteProduct(id));
@@ -43,14 +44,16 @@ export const ResponsiveTable = () => {
     <>
       <Box overflowX="auto" className="flex flex-col gap-4">
         <Link to="/products/add">
-          <Button className="self-start m-4" colorScheme="blue">
+          <Button className="self-start m-4" color="#fff" bg="#0099EE">
             Add Product
           </Button>
         </Link>
         <Table variant="mytable">
           <Thead>
             {tableHeader.map((col, _i) => (
-              <Td className="font-bold">{col}</Td>
+              <Th key={_i} className="font-bold">
+                {col}
+              </Th>
             ))}
           </Thead>
           <Tbody className="odd:!bg-white">
@@ -91,8 +94,4 @@ export const ResponsiveTable = () => {
       />
     </>
   );
-};
-
-export default function Products() {
-  return <ResponsiveTable />;
 }

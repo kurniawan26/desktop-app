@@ -4,6 +4,7 @@ import allProductReducer from './products/reducer';
 import authUserReducer from './auth/reducer';
 import allCategoriesReducer from './categories/reducer';
 import allReportReducer from './report/reducer';
+import allProfileReducer from './profile/reducer';
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     auth: authUserReducer,
     categories: allCategoriesReducer,
     report: allReportReducer,
+    profile: allProfileReducer,
   },
 });
 

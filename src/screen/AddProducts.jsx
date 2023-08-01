@@ -22,7 +22,7 @@ export default function AddProducts() {
   });
 
   const dispatch = useDispatch();
-  const { categories } = useSelector(state => state);
+  const categories = useSelector(state => state.categories);
   const [files, setFiles] = React.useState([]);
   const [width, setWidth] = React.useState(window.innerWidth);
   const handleDrop = acceptedFiles => setFiles(acceptedFiles);

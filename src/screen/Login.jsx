@@ -25,8 +25,6 @@ export default function Login() {
     dispatch(asyncSetAuthUserCreator({ email, password }));
   };
 
-  console.log(email, password);
-
   return (
     <Flex
       minH={'100vh'}

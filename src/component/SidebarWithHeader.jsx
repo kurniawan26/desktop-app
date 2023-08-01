@@ -24,6 +24,10 @@ import { FaFolderOpen } from 'react-icons/fa';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import BeLaundry from '../assets/svg/BeLaundry';
+import { useDispatch, useSelector } from 'react-redux';
+import { asyncRemoveAuthUserCreator } from '../redux/auth/action';
+import { useEffect } from 'react';
+import { asyncGetOwnProfile } from '../redux/profile/action';
 
 const LinkItems = [
   { name: 'Home', icon: FiHome, path: '/' },
@@ -103,6 +107,19 @@ const NavItem = ({ icon, children, path, ...rest }) => {
 };
 
 const MobileNav = ({ onOpen, ...rest }) => {
+  const dispatch = useDispatch();
+  const profile = useSelector(state => state.profile);
+
+  console.log(profile);
+
+  const logoutHandler = () => {
+    dispatch(asyncRemoveAuthUserCreator());
+  };
+
+  useEffect(() => {
+    dispatch(asyncGetOwnProfile());
+  }, [dispatch]);
+
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -140,7 +157,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   spacing="1px"
                   ml="2"
                 >
-                  <Text fontSize="sm">John Doe</Text>
+                  <Text fontSize="sm">{profile?.name}</Text>
                 </VStack>
               </HStack>
             </MenuButton>
@@ -148,11 +165,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
               bg={useColorModeValue('white', 'gray.900')}
               borderColor={useColorModeValue('gray.200', 'gray.700')}
             >
-              <MenuItem>Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
-              <MenuItem>Billing</MenuItem>
-              <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
+              <MenuItem onClick={logoutHandler}>Sign out</MenuItem>
             </MenuList>
           </Menu>
         </Flex>

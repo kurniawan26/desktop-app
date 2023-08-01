@@ -12,7 +12,6 @@ const getAllCategories = category => ({
 const asyncGetAllCategories = () => async dispatch => {
   try {
     const products = await api.seeAllCategories();
-    console.log(products);
     dispatch(getAllCategories(products));
   } catch (error) {
     console.log(error);

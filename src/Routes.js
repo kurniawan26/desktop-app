@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Route, Routes } from 'react-router-dom';
 import Home from './screen/Home';
@@ -6,10 +6,16 @@ import Products from './screen/Products';
 import AddProducts from './screen/AddProducts';
 import Login from './screen/Login';
 import SidebarWithHeader from './component/SidebarWithHeader';
-import api from './utils/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserFromLocalStorage } from './redux/auth/action';
 
 export default function RoutesPages() {
-  const auth = api.getAccessToken();
+  const auth = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setUserFromLocalStorage());
+  }, [dispatch]);
 
   if (auth === null) {
     return (

@@ -56,7 +56,6 @@ const api = (() => {
   }
 
   async function login({ email, password }) {
-    console.log(email, password);
     const response = await axios.post(`${BASE_URL}/user/sign-in`, {
       email,
       password,
@@ -72,7 +71,9 @@ const api = (() => {
 
     const responseJson = await response.json();
 
-    return responseJson;
+    const { response: result } = responseJson;
+
+    return result;
   }
 
   async function seeAllProducts() {

@@ -12,7 +12,6 @@ const getAllReport = report => ({
 const asyncGetAllReport = () => async dispatch => {
   try {
     const report = await api.seeAllReport();
-    console.log(report);
     dispatch(getAllReport(report));
   } catch (error) {
     console.log(error);
