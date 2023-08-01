@@ -8,6 +8,7 @@ import Login from './screen/Login';
 import SidebarWithHeader from './component/SidebarWithHeader';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserFromLocalStorage } from './redux/auth/action';
+import Register from './screen/Register';
 
 export default function RoutesPages() {
   const auth = useSelector(state => state.auth);
@@ -21,6 +22,7 @@ export default function RoutesPages() {
     return (
       <Routes>
         <Route path="*" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     );
   }

@@ -15,24 +15,29 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { asyncSetAuthUserCreator } from '../redux/auth/action';
+import { asyncRegisterUser } from '../redux/auth/action';
 import { Link } from 'react-router-dom';
 
-export default function Login() {
+export default function Register() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const toast = useToast();
+  const [phone, setPhone] = useState('');
 
+  const toast = useToast();
   const dispatch = useDispatch();
 
-  const handleLogin = () => {
-    dispatch(asyncSetAuthUserCreator({ email, password }));
+  const handleRegister = () => {
+    dispatch(asyncRegisterUser({ name, email, password, phone }));
     toast({
-      title: 'Login success.',
-      description: 'Welcome home!',
+      title: 'Account created.',
+      description: "We've created your account for you.",
       status: 'success',
       duration: 5000,
       isClosable: true,
+      onCloseComplete: () => {
+        window.location.href = '/login';
+      },
     });
   };
 
@@ -44,8 +49,8 @@ export default function Login() {
       bg={useColorModeValue('gray.50', 'gray.800')}
     >
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-        <Stack align="center">
-          <Heading fontSize="4xl">Sign in to your account</Heading>
+        <Stack align={'center'}>
+          <Heading fontSize={'4xl'}>Register Your Account</Heading>
         </Stack>
         <Box
           rounded={'lg'}
@@ -54,6 +59,10 @@ export default function Login() {
           p={8}
         >
           <div className="flex flex-col gap-4">
+            <FormControl id="name">
+              <FormLabel>Full Name</FormLabel>
+              <Input type="name" onChange={e => setName(e.target.value)} />
+            </FormControl>
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
               <Input type="email" onChange={e => setEmail(e.target.value)} />
@@ -66,25 +75,32 @@ export default function Login() {
               />
             </FormControl>
 
+            <FormControl id="phone">
+              <FormLabel>Phone</FormLabel>
+              <Input
+                type="text"
+                prefix="+62"
+                onChange={e => setPhone(e.target.value)}
+              />
+            </FormControl>
+
             <Text fontSize="sm" color={'gray.600'}>
-              Didn't have an account?
-              <Link to="/register">
-                <Text color={'blue.400'}>Register</Text>
+              Already have an account?{' '}
+              <Link to="/login">
+                <Text color={'blue.400'}>Login</Text>
               </Link>
             </Text>
 
-            <Stack spacing={10}>
-              <Button
-                onClick={handleLogin}
-                bg={'blue.400'}
-                color={'white'}
-                _hover={{
-                  bg: 'blue.500',
-                }}
-              >
-                Sign in
-              </Button>
-            </Stack>
+            <Button
+              onClick={handleRegister}
+              bg={'blue.400'}
+              color={'white'}
+              _hover={{
+                bg: 'blue.500',
+              }}
+            >
+              Sign Up
+            </Button>
           </div>
         </Box>
       </Stack>

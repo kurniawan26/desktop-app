@@ -110,8 +110,6 @@ const MobileNav = ({ onOpen, ...rest }) => {
   const dispatch = useDispatch();
   const profile = useSelector(state => state.profile);
 
-  console.log(profile);
-
   const logoutHandler = () => {
     dispatch(asyncRemoveAuthUserCreator());
   };

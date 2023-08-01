@@ -36,12 +36,9 @@ const api = (() => {
     }
   }
 
-  async function register({ email, name, password, phone }) {
+  async function register(body) {
     const response = await axios.post(`${BASE_URL}/user/sign-up`, {
-      email,
-      name,
-      password,
-      phone,
+      ...body,
     });
 
     const { status, message } = response.data;
